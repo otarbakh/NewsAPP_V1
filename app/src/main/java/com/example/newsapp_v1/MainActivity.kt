@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.newsapp_v1.databinding.ActivityMainBinding
 import com.example.newsapp_v1.ui.fragments.BreakingNewsFragment
 import com.example.newsapp_v1.ui.fragments.SavedNewsFragment
+import com.example.newsapp_v1.ui.fragments.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun loadFragment(fragment: Fragment) {
+    private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.nav_host_fragment, fragment)
         transaction.commit()
