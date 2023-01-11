@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsapp_v1.data.model.Article
-import com.example.newsapp_v1.data.model.NewsDto
 import com.example.newsapp_v1.databinding.SinglenewsitemBinding
 
 class BreakingNewsAdapter :
@@ -34,7 +34,7 @@ class BreakingNewsAdapter :
         private var model: Article? = null
 
         fun bindData() {
-            model = getItem(bindingAdapterPosition)
+            model = getItem(adapterPosition)
             binding.apply {
                 tvNewsText.text = model?.title
                 tvDesription.text = model?.description
@@ -45,29 +45,29 @@ class BreakingNewsAdapter :
             }
 
             binding.ivNewsImage.setOnClickListener {
-                itemClickListener.invoke(model!!, absoluteAdapterPosition)
+                itemClickListener.invoke(model!!, adapterPosition)
             }
         }
     }
 
-    fun setOnItemClickListener(clickListener: (ArticleDomain, Int) -> Unit) {
+    fun setOnItemClickListener(clickListener: (Article, Int) -> Unit) {
         itemClickListener = clickListener
     }
 
 }
 
 class NewsDiffCallBack :
-    DiffUtil.ItemCallback<ArticleDomain>() {
+    DiffUtil.ItemCallback<Article>() {
     override fun areItemsTheSame(
-        oldItem: ArticleDomain,
-        newItem: ArticleDomain
+        oldItem: Article,
+        newItem: Article
     ): Boolean {
         return oldItem.content == newItem.content
     }
 
     override fun areContentsTheSame(
-        oldItem: ArticleDomain,
-        newItem: ArticleDomain
+        oldItem: Article,
+        newItem: Article
     ): Boolean {
         return oldItem == newItem
     }
