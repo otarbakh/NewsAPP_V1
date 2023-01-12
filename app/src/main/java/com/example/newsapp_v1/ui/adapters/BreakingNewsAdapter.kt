@@ -1,4 +1,4 @@
-package com.example.newsapp_v1
+package com.example.newsapp_v1.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
