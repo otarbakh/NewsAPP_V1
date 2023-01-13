@@ -71,6 +71,4 @@ class NewsDiffCallBack :
     ): Boolean {
         return oldItem == newItem
     }
-
-
 }

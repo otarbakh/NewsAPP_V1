@@ -14,13 +14,13 @@ class NewsRepositoryImpl @Inject constructor(
     private val api: NewsApi
 ) : NewsRepository {
 
-    override suspend fun getBreakingNews(): Flow<List<Article>> = flow  {
+    override suspend fun getBreakingNews(): Flow<Resource<List<Article>>> = flow  {
 
         try {
             emit(Resource.Loading(true))
             val response = api.getBreakingNews(query = "autosport")
             if (response.isSuccessful) {
-                emit(Resource.Success(response.body()!!))
+                emit(Resource.Success(response.body()!!.articles))
             }
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "unexpected"))
@@ -28,7 +28,7 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun getSearchNews(searchQuery:String): Flow<List<Article>> = flow {
+    override suspend fun getSearchNews(searchQuery:String): Flow<Resource<List<Article>>> = flow {
 
         try {
             emit(Resource.Loading(true))
