@@ -18,7 +18,7 @@ class NewsRepositoryImpl @Inject constructor(
 
         try {
             emit(Resource.Loading(true))
-            val response = api.getBreakingNews(query = "autosport")
+            val response = api.getBreakingNews()
             if (response.isSuccessful) {
                 emit(Resource.Success(response.body()!!.articles))
             }

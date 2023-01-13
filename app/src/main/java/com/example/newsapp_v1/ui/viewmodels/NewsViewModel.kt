@@ -20,12 +20,12 @@ class NewsViewModel @Inject constructor(
     private val _newsState = MutableStateFlow<Resource<List<Article>>>(Resource.Loading(false))
     val newsState = _newsState.asStateFlow()
 
-    suspend fun getBreakingNewsFromViewModel(): Flow<Resource<Article>> = flow {
+    suspend fun getBreakingNewsFromViewModel(): Flow<Resource<List<Article>>> = flow {
         viewModelScope.launch {
             newsRepositoryImpl.getBreakingNews().collect {
                 when (it){
-                    is Resource.Loading -> _newsState.value = Resource.Loading(true)
                     is Resource.Success -> _newsState.value = Resource.Success(it.data)
+                    is Resource.Loading -> _newsState.value = Resource.Loading(true)
                     is Resource.Error -> _newsState.value = Resource.Error("ops error")
                 }
             }

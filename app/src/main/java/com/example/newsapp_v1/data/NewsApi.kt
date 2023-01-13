@@ -11,7 +11,7 @@ interface NewsApi {
     @GET("v2/everything")
     suspend fun getBreakingNews(
         @Query("q")
-        query:String ,
+        query:String = "autosport",
         @Query("page")
         pageNumber : Int = 1,
         @Query("apiKey")
