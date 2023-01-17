@@ -1,6 +1,7 @@
 package com.example.newsapp_v1.data.repository
 
 
+import com.example.newsapp_v1.common.util.Constants
 import com.example.newsapp_v1.common.util.Resource
 import com.example.newsapp_v1.data.NewsApi
 import com.example.newsapp_v1.data.model.Article
@@ -18,7 +19,7 @@ class NewsRepositoryImpl @Inject constructor(
 
         try {
             emit(Resource.Loading(true))
-            val response = api.getBreakingNews()
+            val response = api.getBreakingNews("Autosport", Constants.API_KEY)
             if (response.isSuccessful) {
                 emit(Resource.Success(response.body()!!.articles))
             }
@@ -28,17 +29,17 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun getSearchNews(searchQuery:String): Flow<Resource<List<Article>>> = flow {
-
-        try {
-            emit(Resource.Loading(true))
-            val response = api.getSearchedNews(query = searchQuery)
-            if (response.isSuccessful) {
-                emit(Resource.Success(response.body()!!.articles))
-            }
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "unexpected"))
-        }
-
-    }
+//    override suspend fun getSearchNews(searchQuery:String): Flow<Resource<List<Article>>> = flow {
+//
+//        try {
+//            emit(Resource.Loading(true))
+//            val response = api.getSearchedNews(query = searchQuery,Constants.API_KEY)
+//            if (response.isSuccessful) {
+//                emit(Resource.Success(response.body()!!.articles))
+//            }
+//        } catch (e: HttpException) {
+//            emit(Resource.Error(e.localizedMessage ?: "unexpected"))
+//        }
+//
+//    }
 }
