@@ -27,19 +27,4 @@ class NewsRepositoryImpl @Inject constructor(
             emit(Resource.Error(e.localizedMessage ?: "unexpected"))
         }
     }
-
-
-//    override suspend fun getSearchNews(searchQuery:String): Flow<Resource<List<Article>>> = flow {
-//
-//        try {
-//            emit(Resource.Loading(true))
-//            val response = api.getSearchedNews(query = searchQuery,Constants.API_KEY)
-//            if (response.isSuccessful) {
-//                emit(Resource.Success(response.body()!!.articles))
-//            }
-//        } catch (e: HttpException) {
-//            emit(Resource.Error(e.localizedMessage ?: "unexpected"))
-//        }
-//
-//    }
 }
