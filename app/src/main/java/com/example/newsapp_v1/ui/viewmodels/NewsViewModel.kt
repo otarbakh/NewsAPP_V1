@@ -4,8 +4,7 @@ package com.example.newsapp_v1.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp_v1.common.util.Resource
-import com.example.newsapp_v1.data.model.Article
-import com.example.newsapp_v1.data.repository.NewsRepositoryImpl
+import com.example.newsapp_v1.data.models.Article
 import com.example.newsapp_v1.domain.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

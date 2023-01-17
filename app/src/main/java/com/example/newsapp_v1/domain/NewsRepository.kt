@@ -1,7 +1,7 @@
 package com.example.newsapp_v1.domain
 
 import com.example.newsapp_v1.common.util.Resource
-import com.example.newsapp_v1.data.model.Article
+import com.example.newsapp_v1.data.models.Article
 import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {

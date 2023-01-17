@@ -4,7 +4,7 @@ package com.example.newsapp_v1.data.repository
 import com.example.newsapp_v1.common.util.Constants
 import com.example.newsapp_v1.common.util.Resource
 import com.example.newsapp_v1.data.NewsApi
-import com.example.newsapp_v1.data.model.Article
+import com.example.newsapp_v1.data.models.Article
 import com.example.newsapp_v1.domain.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

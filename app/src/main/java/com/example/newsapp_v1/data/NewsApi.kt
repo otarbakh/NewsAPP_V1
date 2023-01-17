@@ -1,6 +1,6 @@
 package com.example.newsapp_v1.data
 
-import com.example.newsapp_v1.data.model.NewsResponse
+import com.example.newsapp_v1.data.models.NewsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
