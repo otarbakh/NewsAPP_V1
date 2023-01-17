@@ -17,13 +17,13 @@ interface NewsApi {
         apiKey:String
     ):Response<NewsResponse>
 
-    @GET("everything")
-    suspend fun getSearchedNews(
-        @Query("q")
-        query:String,
-        @Query("page")
-        pageNumber : Int = 1,
-        @Query("apiKey")
-        apiKey:String
-    ):Response<NewsResponse>
+//    @GET("everything")
+//    suspend fun getSearchedNews(
+//        @Query("q")
+//        query:String,
+//        @Query("page")
+//        pageNumber : Int = 1,
+//        @Query("apiKey")
+//        apiKey:String
+//    ):Response<NewsResponse>
 }

@@ -1,11 +1,5 @@
 package com.example.newsapp_v1.data.model
-
-
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-
-
 
 data class Article(
     @SerializedName("author")
