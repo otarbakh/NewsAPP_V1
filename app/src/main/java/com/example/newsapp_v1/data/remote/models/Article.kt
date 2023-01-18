@@ -1,4 +1,4 @@
-package com.example.newsapp_v1.data.models
+package com.example.newsapp_v1.data.remote.models
 import com.google.gson.annotations.SerializedName
 
 data class Article(

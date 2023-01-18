@@ -1,10 +1,10 @@
-package com.example.newsapp_v1.data.repository
+package com.example.newsapp_v1.data.remote.repository
 
 
 import com.example.newsapp_v1.common.util.Constants
 import com.example.newsapp_v1.common.util.Resource
-import com.example.newsapp_v1.data.NewsApi
-import com.example.newsapp_v1.data.models.Article
+import com.example.newsapp_v1.data.remote.services.NewsApi
+import com.example.newsapp_v1.data.remote.models.Article
 import com.example.newsapp_v1.domain.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

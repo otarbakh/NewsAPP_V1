@@ -1,6 +1,6 @@
 package com.example.newsapp_v1.di
 
-import com.example.newsapp_v1.data.repository.NewsRepositoryImpl
+import com.example.newsapp_v1.data.remote.repository.NewsRepositoryImpl
 import com.example.newsapp_v1.domain.NewsRepository
 import dagger.Binds
 import dagger.Module

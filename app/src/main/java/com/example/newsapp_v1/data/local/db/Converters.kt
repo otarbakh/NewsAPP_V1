@@ -1,7 +1,7 @@
-package com.example.newsapp_v1.db
+package com.example.newsapp_v1.data.local.db
 
 import androidx.room.TypeConverter
-import com.example.newsapp_v1.data.models.Source
+import com.example.newsapp_v1.data.remote.models.Source
 
 class Converters {
     @TypeConverter
@@ -10,7 +10,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun toSource(name:String):Source{
+    fun toSource(name:String): Source {
         return Source(name,name)
     }
 }
