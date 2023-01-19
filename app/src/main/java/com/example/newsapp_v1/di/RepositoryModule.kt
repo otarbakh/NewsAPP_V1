@@ -1,7 +1,7 @@
 package com.example.newsapp_v1.di
 
 import com.example.newsapp_v1.data.remote.repository.NewsRepositoryImpl
-import com.example.newsapp_v1.domain.NewsRepository
+import com.example.newsapp_v1.domain.repository.NewsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,3 +19,4 @@ abstract class RepositoryModule {
         newsRepositoryImpl: NewsRepositoryImpl
     ): NewsRepository
 }
+

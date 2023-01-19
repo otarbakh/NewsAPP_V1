@@ -1,6 +1,8 @@
 package com.example.newsapp_v1.ui.fragments
 
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -69,9 +71,27 @@ class BreakingNewsFragment :
     }
 
     override fun listeners() {
+        gotoLink()
+        addToFavorite()
 
     }
 
+    private fun gotoLink(){
+        breakingNewsAdapter.apply {
+            setOnItemClickListener { article, i ->
 
+                val uri: Uri = Uri.parse(article.url) // missing 'http://' will cause crashed
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent)
+            }
+        }
+    }
 
+    private fun addToFavorite(){
+        breakingNewsAdapter.apply {
+            setOnFavoriteClickListener { article, i ->
+                vm.upsertArticle(article)
+            }
+        }
+    }
 }

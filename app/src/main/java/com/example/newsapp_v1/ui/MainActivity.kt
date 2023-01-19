@@ -4,19 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.newsapp_v1.R
-import com.example.newsapp_v1.data.remote.repository.NewsRepositoryImpl
 import com.example.newsapp_v1.databinding.ActivityMainBinding
-import com.example.newsapp_v1.domain.NewsRepository
 import com.example.newsapp_v1.ui.fragments.BreakingNewsFragment
 import com.example.newsapp_v1.ui.fragments.SavedNewsFragment
 import com.example.newsapp_v1.ui.fragments.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 
 @AndroidEntryPoint

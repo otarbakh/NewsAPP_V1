@@ -1,4 +1,6 @@
 package com.example.newsapp_v1.data.remote.models
+
+import com.example.newsapp_v1.domain.models.ArticleDomain
 import com.google.gson.annotations.SerializedName
 
 data class Article(
@@ -19,3 +21,14 @@ data class Article(
     @SerializedName("urlToImage")
     val urlToImage: String
 )
+
+fun Article.ToArticleDomain(): ArticleDomain {
+    return ArticleDomain(
+        id = null,
+        description,
+        title,
+        url,
+        urlToImage
+    )
+}
+

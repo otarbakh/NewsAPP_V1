@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp_v1.data.remote.models.Article
 import com.example.newsapp_v1.databinding.SinglenewsitemBinding
+import com.example.newsapp_v1.domain.models.ArticleDomain
 
 class BreakingNewsAdapter :
-    ListAdapter<Article, BreakingNewsAdapter.NewsViewHolder>(
+    ListAdapter<ArticleDomain, BreakingNewsAdapter.NewsViewHolder>(
         NewsDiffCallBack()
     ) {
 
-    private lateinit var itemClickListener: (Article, Int) -> Unit
+    private lateinit var itemClickListener: (ArticleDomain, Int) -> Unit
+    private lateinit var addFavoriteListener: (ArticleDomain, Int) -> Unit
 
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
@@ -31,7 +33,7 @@ class BreakingNewsAdapter :
 
     inner class NewsViewHolder(private val binding: SinglenewsitemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private var model: Article? = null
+        private var model: ArticleDomain? = null
 
         fun bindData() {
             model = getItem(adapterPosition)
@@ -44,30 +46,38 @@ class BreakingNewsAdapter :
                     .into(ivNewsImage)
             }
 
-            binding.ivNewsImage.setOnClickListener {
+            binding.mainLayout.setOnClickListener {
                 itemClickListener.invoke(model!!, adapterPosition)
+            }
+
+            binding.btnFavorite.setOnClickListener {
+                addFavoriteListener.invoke(model!!, adapterPosition)
             }
         }
     }
 
-    fun setOnItemClickListener(clickListener: (Article, Int) -> Unit) {
+    fun setOnItemClickListener(clickListener: (ArticleDomain, Int) -> Unit) {
         itemClickListener = clickListener
+    }
+
+    fun setOnFavoriteClickListener(clickListener: (ArticleDomain, Int) -> Unit) {
+        addFavoriteListener = clickListener
     }
 
 }
 
 class NewsDiffCallBack :
-    DiffUtil.ItemCallback<Article>() {
+    DiffUtil.ItemCallback<ArticleDomain>() {
     override fun areItemsTheSame(
-        oldItem: Article,
-        newItem: Article
+        oldItem: ArticleDomain,
+        newItem: ArticleDomain
     ): Boolean {
-        return oldItem.content == newItem.content
+        return oldItem.description == newItem.description
     }
 
     override fun areContentsTheSame(
-        oldItem: Article,
-        newItem: Article
+        oldItem: ArticleDomain,
+        newItem: ArticleDomain
     ): Boolean {
         return oldItem == newItem
     }
