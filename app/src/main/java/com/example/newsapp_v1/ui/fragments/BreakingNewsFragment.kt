@@ -88,9 +88,17 @@ class BreakingNewsFragment :
     }
 
     private fun addToFavorite(){
+        val ourList  = breakingNewsAdapter.currentList.toList()
         breakingNewsAdapter.apply {
             setOnFavoriteClickListener { article, i ->
-                vm.upsertArticle(article)
+                if (ourList.isNotEmpty()){
+                    Log.d("OtarBakh", "is arsebobssss")
+
+                }
+                else{
+                    vm.upsertArticle(article)
+                }
+
             }
         }
     }

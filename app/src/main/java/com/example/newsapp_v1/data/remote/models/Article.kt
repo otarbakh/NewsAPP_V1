@@ -23,6 +23,7 @@ data class Article(
 )
 
 fun Article.ToArticleDomain(): ArticleDomain {
+
     return ArticleDomain(
         id = null,
         description,
