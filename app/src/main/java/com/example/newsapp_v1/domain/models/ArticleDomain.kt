@@ -3,10 +3,10 @@ package com.example.newsapp_v1.domain.models
 import com.example.newsapp_v1.data.local.models.ArticlesEntity
 
 data class ArticleDomain(
-    val id:Int?,
+    val url:String,
     val description:String,
     val title:String,
-    val url:String,
+
     val urlToImage:String
 
 )
@@ -14,7 +14,7 @@ data class ArticleDomain(
 
 fun ArticleDomain.toArticleEntity():ArticlesEntity{
     return ArticlesEntity(
-        id, urlToImage, title, description, url
+        url,urlToImage, title, description,
 
     )
 }

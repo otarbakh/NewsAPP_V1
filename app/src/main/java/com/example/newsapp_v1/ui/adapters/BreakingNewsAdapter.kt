@@ -72,7 +72,7 @@ class NewsDiffCallBack :
         oldItem: ArticleDomain,
         newItem: ArticleDomain
     ): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.url == newItem.url
     }
 
     override fun areContentsTheSame(

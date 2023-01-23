@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp_v1.common.util.Resource
 import com.example.newsapp_v1.databinding.FragmentBreakingNewsBinding
+import com.example.newsapp_v1.domain.models.ArticleDomain
 import com.example.newsapp_v1.ui.adapters.BreakingNewsAdapter
 
 import com.example.newsapp_v1.ui.viewmodels.NewsViewModel
@@ -32,6 +33,7 @@ class BreakingNewsFragment :
         setupRecycler()
         observe()
 
+
     }
 
     private fun setupRecycler() {
@@ -49,7 +51,7 @@ class BreakingNewsFragment :
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-               vm.newsState.collect() {
+                vm.newsState.collect() {
                     when (it) {
                         is Resource.Loading -> {
                             Log.d("OtarBakh", "Trialebs")
@@ -76,7 +78,7 @@ class BreakingNewsFragment :
 
     }
 
-    private fun gotoLink(){
+    private fun gotoLink() {
         breakingNewsAdapter.apply {
             setOnItemClickListener { article, i ->
 
@@ -87,19 +89,12 @@ class BreakingNewsFragment :
         }
     }
 
-    private fun addToFavorite(){
-        val ourList  = breakingNewsAdapter.currentList.toList()
+    private fun addToFavorite() {
         breakingNewsAdapter.apply {
             setOnFavoriteClickListener { article, i ->
-                if (ourList.isNotEmpty()){
-                    Log.d("OtarBakh", "is arsebobssss")
-
-                }
-                else{
-                    vm.upsertArticle(article)
-                }
-
+                vm.upsertArticle(article)
             }
         }
     }
+
 }
