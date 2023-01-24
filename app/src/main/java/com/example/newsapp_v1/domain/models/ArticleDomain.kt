@@ -4,8 +4,8 @@ import com.example.newsapp_v1.data.local.models.ArticlesEntity
 
 data class ArticleDomain(
     val url:String,
-    val description:String,
-    val title:String,
+    val description:String?,
+    val title:String?,
     val urlToImage:String?
 
 )

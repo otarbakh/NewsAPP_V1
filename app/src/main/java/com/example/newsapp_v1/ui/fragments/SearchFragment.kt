@@ -41,7 +41,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.newsState.collect() {
+                vm.searchState.collect() {
                     when (it) {
                         is Resource.Loading -> {
                             Log.d("OtarBakh", "Trialebs")
@@ -63,9 +63,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun search() {
-
         binding.etSearch.addTextChangedListener { editable ->
-            if (editable.toString().isNotEmpty()) {
+            if (editable!!.toString().isNotEmpty()) {
                 vm.getSearchedNews(editable.toString())
             }
 
