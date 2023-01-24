@@ -10,6 +10,8 @@ interface NewsRepository {
 
     suspend fun getBreakingNews(): Flow<Resource<List<ArticleDomain>>>
 
+    suspend fun getSearchedNews(q:String): Flow<Resource<List<ArticleDomain>>>
+
     suspend fun getArticle(): Flow<List<ArticleDomain>>
 
 
@@ -17,6 +19,8 @@ interface NewsRepository {
 
 
     suspend fun deleteArticle(article: ArticleDomain)
+
+
 
 
 }

@@ -9,15 +9,16 @@ import com.example.newsapp_v1.domain.models.ArticleDomain
 )
 data class ArticlesEntity(
     @PrimaryKey(autoGenerate = false)
-    val url:String,
-    val urlToImage: String,
+    val url: String,
+    val urlToImage: String?,
     val title: String,
     val description: String,
 
 
-)
- fun ArticlesEntity.toArticleDomain():ArticleDomain{
-     return ArticleDomain(
-         description, title, url, urlToImage
-     )
- }
+    )
+
+fun ArticlesEntity.toArticleDomain(): ArticleDomain {
+    return ArticleDomain(
+        url, description, title, urlToImage,
+    )
+}

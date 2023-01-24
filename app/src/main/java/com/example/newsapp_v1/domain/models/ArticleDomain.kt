@@ -6,8 +6,7 @@ data class ArticleDomain(
     val url:String,
     val description:String,
     val title:String,
-
-    val urlToImage:String
+    val urlToImage:String?
 
 )
 

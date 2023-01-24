@@ -23,6 +23,23 @@ class NewsViewModel @Inject constructor(
     private val _newsState = MutableStateFlow<Resource<List<ArticleDomain>>>(Resource.Loading(false))
     val newsState = _newsState.asStateFlow()
 
+    private val _searchState = MutableStateFlow<Resource<List<ArticleDomain>>>(Resource.Loading(false))
+    val searchState = _searchState.asStateFlow()
+
+
+
+    fun getSearchedNews(q:String){
+        viewModelScope.launch {
+            newsRepositoryImpl.getSearchedNews(q).collect(){
+                when (it){
+                    is Resource.Success -> _searchState.value = Resource.Success(it.data)
+                    is Resource.Loading -> _searchState.value = Resource.Loading(true)
+                    is Resource.Error -> _searchState.value = Resource.Error("ops error")
+                }
+            }
+        }
+    }
+
      fun getBreakingNewsFromViewModel(){
         viewModelScope.launch {
             newsRepositoryImpl.getBreakingNews().collect() {
@@ -50,5 +67,7 @@ class NewsViewModel @Inject constructor(
             newsRepositoryImpl.deleteArticle(article)
         }
     }
+
+
 
 }
