@@ -22,7 +22,7 @@ data class Article(
     val urlToImage: String?
 )
 
-fun Article.ToArticleDomain(): ArticleDomain {
+fun Article.toArticleDomain(): ArticleDomain {
 
     return ArticleDomain(
         url,
