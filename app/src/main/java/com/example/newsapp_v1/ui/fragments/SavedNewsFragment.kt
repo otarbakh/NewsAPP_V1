@@ -13,6 +13,7 @@ import com.example.newsapp_v1.ui.adapters.BreakingNewsAdapter
 import com.example.newsapp_v1.ui.viewmodels.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -25,7 +26,7 @@ class SavedNewsFragment :
     private val vm: NewsViewModel by viewModels()
 
     override fun viewCreated() {
-        getSavedArticles()
+//        getSavedArticles()
 
     }
 
@@ -33,17 +34,17 @@ class SavedNewsFragment :
         swipe()
     }
 
-    private fun getSavedArticles() {
-        setupRecycler()
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.getSavedArticle().collectLatest {
-                    breakingNewsAdapter.submitList(it)
-                }
-            }
-        }
-
-    }
+//    private fun getSavedArticles() {
+//        setupRecycler()
+//        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                vm.getSavedArticle().collectLatest {
+//                    breakingNewsAdapter.submitData(it)
+//                }
+//            }
+//        }
+//
+//    }
 
     private fun swipe(){
         val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
@@ -59,8 +60,8 @@ class SavedNewsFragment :
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                val article = breakingNewsAdapter.currentList[position]
+                val position = viewHolder.absoluteAdapterPosition
+                val article = breakingNewsAdapter.snapshot().items[position]
                 vm.deleteArticle(article)
 
                 Snackbar.make(view!!,"Successfully deleted article",Snackbar.LENGTH_LONG).apply {
@@ -88,7 +89,4 @@ class SavedNewsFragment :
                 )
         }
     }
-
-
-
 }

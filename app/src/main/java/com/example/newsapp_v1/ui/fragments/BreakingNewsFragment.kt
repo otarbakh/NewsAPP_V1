@@ -9,9 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newsapp_v1.common.util.Resource
 import com.example.newsapp_v1.databinding.FragmentBreakingNewsBinding
-import com.example.newsapp_v1.domain.models.ArticleDomain
 import com.example.newsapp_v1.ui.adapters.BreakingNewsAdapter
 
 import com.example.newsapp_v1.ui.viewmodels.NewsViewModel
@@ -29,11 +27,9 @@ class BreakingNewsFragment :
     private val vm: NewsViewModel by viewModels()
 
     override fun viewCreated() {
-        vm.getBreakingNewsFromViewModel()
         setupRecycler()
         observe()
-
-
+        Log.d("Otar","Viewcreadted 32 breaking")
     }
 
     private fun setupRecycler() {
@@ -51,23 +47,11 @@ class BreakingNewsFragment :
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.newsState.collect() {
-                    when (it) {
-                        is Resource.Loading -> {
-                            Log.d("OtarBakh", "Trialebs")
-
-                        }
-                        is Resource.Success -> {
-                            breakingNewsAdapter.submitList(it.data)
-                            Log.d("OtarBakh", "Chaitvirta")
-
-                        }
-                        is Resource.Error -> {
-                            Log.d("OtarBakh", "daerorda")
-
-                        }
-                    }
+//                vm.getBreakingNewsFromViewModel()
+                vm.getBreakingNewsFromViewModel().collect() {
+                    breakingNewsAdapter.submitData(it)
                 }
+
             }
         }
     }
@@ -81,7 +65,6 @@ class BreakingNewsFragment :
     private fun gotoLink() {
         breakingNewsAdapter.apply {
             setOnItemClickListener { article, i ->
-
                 val uri: Uri = Uri.parse(article.url) // missing 'http://' will cause crashed
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)

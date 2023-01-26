@@ -1,8 +1,57 @@
 package com.example.newsapp_v1.data.paging
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.newsapp_v1.common.util.Constants.NETWORK_PAGE_SIZE
 import com.example.newsapp_v1.data.remote.services.NewsApi
+import com.example.newsapp_v1.domain.models.ArticleDomain
+import com.example.newsapp_v1.domain.repository.NewsPagingRepository
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ArticlesDataSourceImpl(
+@Singleton
+
+class ArticlesDataSourceImpl @Inject constructor(
     private val newsApi: NewsApi
-):ArticlePagingSource {
+):NewsPagingRepository {
+    override suspend fun getBreakingNews(): Flow<PagingData<ArticleDomain>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+//                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                ArticlePagingSource(newsApi)
+            }
+        ).flow
+    }
+
+    override suspend fun getSearchedNews(q: String): Flow<PagingData<ArticleDomain>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+//                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                ArticlePagingSource(newsApi)
+            }
+        ).flow
+    }
+
+    override suspend fun getArticle(): Flow<PagingData<ArticleDomain>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+//                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                ArticlePagingSource(newsApi)
+            }
+        ).flow
+    }
+
+
+
 }

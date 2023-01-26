@@ -13,7 +13,7 @@ interface ArticleDao {
     suspend fun upsert(article: ArticlesEntity)
 
     @Query("SELECT * FROM articles")
-    fun getAllArticles():Flow<List<ArticlesEntity>>
+    suspend fun getAllArticles():List<ArticlesEntity>
 
     @Delete
     suspend fun deleteArticle(article: ArticlesEntity)

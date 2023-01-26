@@ -2,6 +2,7 @@ package com.example.newsapp_v1.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.example.newsapp_v1.databinding.SinglenewsitemBinding
 import com.example.newsapp_v1.domain.models.ArticleDomain
 
 class BreakingNewsAdapter :
-    ListAdapter<ArticleDomain, BreakingNewsAdapter.NewsViewHolder>(
+    PagingDataAdapter<ArticleDomain, BreakingNewsAdapter.NewsViewHolder>(
         NewsDiffCallBack()
     ) {
 

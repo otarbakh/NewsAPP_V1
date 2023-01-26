@@ -12,7 +12,9 @@ interface NewsApi {
         @Query("q")
         query:String ,
         @Query("page")
-        pageNumber : Int = 1,
+        pageNumber : Int,
+        @Query("pageSize")
+        pageSize:Int,
         @Query("apiKey")
         apiKey:String
     ):Response<NewsResponse>
@@ -21,8 +23,8 @@ interface NewsApi {
     suspend fun getSearchedNews(
         @Query("q")
         query:String,
-//        @Query("page")
-//        pageNumber : Int = 1,
+        @Query("page")
+        pageNumber : Int,
         @Query("apiKey")
         apiKey:String
     ):Response<NewsResponse>

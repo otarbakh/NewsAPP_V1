@@ -17,14 +17,8 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
-    private val api: NewsApi,
     private val articleDao: ArticleDao
 ) : NewsRepository {
-
-    override suspend fun getArticle(): Flow<List<ArticleDomain>> {
-        return articleDao.getAllArticles().map { it.map { it.toArticleDomain() } }
-
-    }
 
     override suspend fun upsertArticle(article: ArticleDomain) {
         return articleDao.upsert(article.toArticleEntity())
@@ -35,31 +29,4 @@ class NewsRepositoryImpl @Inject constructor(
         return articleDao.deleteArticle(article.toArticleEntity())
 
     }
-
-    override suspend fun getBreakingNews(): Flow<Resource<List<ArticleDomain>>> = flow  {
-
-        try {
-            emit(Resource.Loading(true))
-            val response = api.getBreakingNews("Autosport", Constants.API_KEY)
-            if (response.isSuccessful) {
-                emit(Resource.Success(response.body()!!.articles.map { it.toArticleDomain() }))
-            }
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "unexpected"))
-        }
-    }
-
-    override suspend fun getSearchedNews(q:String): Flow<Resource<List<ArticleDomain>>> = flow  {
-
-        try {
-            emit(Resource.Loading(true))
-            val response = api.getSearchedNews(q, Constants.API_KEY)
-            if (response.isSuccessful) {
-                emit(Resource.Success(response.body()!!.articles.map { it.toArticleDomain() }))
-            }
-        } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage ?: "unexpected"))
-        }
-    }
-
 }
