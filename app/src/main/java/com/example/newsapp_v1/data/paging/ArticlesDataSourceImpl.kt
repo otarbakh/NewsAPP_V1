@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.newsapp_v1.common.util.Constants.NETWORK_PAGE_SIZE
+import com.example.newsapp_v1.data.local.db.ArticleDao
 import com.example.newsapp_v1.data.remote.services.NewsApi
 import com.example.newsapp_v1.domain.models.ArticleDomain
 import com.example.newsapp_v1.domain.repository.NewsPagingRepository
@@ -14,44 +15,29 @@ import javax.inject.Singleton
 @Singleton
 
 class ArticlesDataSourceImpl @Inject constructor(
-    private val newsApi: NewsApi
+    private val newsApi: NewsApi,
+    private val articleDao:ArticleDao
 ):NewsPagingRepository {
-    override suspend fun getBreakingNews(): Flow<PagingData<ArticleDomain>> {
+    override suspend fun getBreakingNews(q:String): Flow<PagingData<ArticleDomain>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
-//                enablePlaceholders = false
+                enablePlaceholders = true
             ),
             pagingSourceFactory = {
-                ArticlePagingSource(newsApi)
+                ArticlePagingSource(newsApi,q)
             }
         ).flow
     }
-
-    override suspend fun getSearchedNews(q: String): Flow<PagingData<ArticleDomain>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-//                enablePlaceholders = false
-            ),
-            pagingSourceFactory = {
-                ArticlePagingSource(newsApi)
-            }
-        ).flow
-    }
-
     override suspend fun getArticle(): Flow<PagingData<ArticleDomain>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
-//                enablePlaceholders = false
+                enablePlaceholders = true
             ),
             pagingSourceFactory = {
-                ArticlePagingSource(newsApi)
+                SavedArticlePagingSource(articleDao)
             }
         ).flow
     }
-
-
-
 }

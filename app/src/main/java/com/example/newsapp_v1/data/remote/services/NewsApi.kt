@@ -11,20 +11,10 @@ interface NewsApi {
     suspend fun getBreakingNews(
         @Query("q")
         query:String ,
-        @Query("page")
-        pageNumber : Int,
+//        @Query("page")
+//        pageNumber : Int,
         @Query("pageSize")
         pageSize:Int,
-        @Query("apiKey")
-        apiKey:String
-    ):Response<NewsResponse>
-
-    @GET("everything")
-    suspend fun getSearchedNews(
-        @Query("q")
-        query:String,
-        @Query("page")
-        pageNumber : Int,
         @Query("apiKey")
         apiKey:String
     ):Response<NewsResponse>

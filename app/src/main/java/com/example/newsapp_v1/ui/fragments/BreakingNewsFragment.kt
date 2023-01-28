@@ -4,6 +4,7 @@ package com.example.newsapp_v1.ui.fragments
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -29,7 +30,7 @@ class BreakingNewsFragment :
     override fun viewCreated() {
         setupRecycler()
         observe()
-        Log.d("Otar","Viewcreadted 32 breaking")
+        Log.d("Otar", "Viewcreadted 32 breaking")
     }
 
     private fun setupRecycler() {
@@ -44,11 +45,12 @@ class BreakingNewsFragment :
         }
     }
 
+
+
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                vm.getBreakingNewsFromViewModel()
-                vm.getBreakingNewsFromViewModel().collect() {
+                vm.getBreakingNewsFromViewModel("america").collect() {
                     breakingNewsAdapter.submitData(it)
                 }
 
@@ -59,7 +61,7 @@ class BreakingNewsFragment :
     override fun listeners() {
         gotoLink()
         addToFavorite()
-
+        search()
     }
 
     private fun gotoLink() {
@@ -68,6 +70,18 @@ class BreakingNewsFragment :
                 val uri: Uri = Uri.parse(article.url) // missing 'http://' will cause crashed
                 val intent = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(intent)
+            }
+        }
+    }
+
+    private fun search() {
+        binding.etSearch.addTextChangedListener { editable ->
+            if (editable!!.toString().isNotEmpty()) {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                        vm.getBreakingNewsFromViewModel(editable.toString())
+                    }
+                }
             }
         }
     }

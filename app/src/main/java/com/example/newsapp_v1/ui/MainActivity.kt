@@ -7,7 +7,6 @@ import com.example.newsapp_v1.R
 import com.example.newsapp_v1.databinding.ActivityMainBinding
 import com.example.newsapp_v1.ui.fragments.BreakingNewsFragment
 import com.example.newsapp_v1.ui.fragments.SavedNewsFragment
-import com.example.newsapp_v1.ui.fragments.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.searchNewsFragment -> {
-                    loadFragment(SearchFragment())
+//                    loadFragment(SearchFragment())
                     true
                 }
 

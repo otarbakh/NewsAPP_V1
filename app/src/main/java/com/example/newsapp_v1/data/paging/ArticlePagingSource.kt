@@ -15,7 +15,9 @@ import retrofit2.HttpException
 import java.io.IOException
 import kotlin.math.max
 
-class ArticlePagingSource(private val api: NewsApi) : PagingSource<Int, ArticleDomain>() {
+
+
+class ArticlePagingSource(private val api: NewsApi,private val q:String) : PagingSource<Int, ArticleDomain>() {
 
 
     override fun getRefreshKey(state: PagingState<Int, ArticleDomain>): Int? {
@@ -26,10 +28,10 @@ class ArticlePagingSource(private val api: NewsApi) : PagingSource<Int, ArticleD
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleDomain> {
-        val start = params.key ?: STARTING_KEY
+        val page = params.key ?: STARTING_KEY
 
         return try {
-            val response = api.getBreakingNews("Autosport", start,params.loadSize, Constants.API_KEY)
+            val response = api.getBreakingNews(q, params.loadSize, Constants.API_KEY)
             val articles = response.body()!!.articles.map { it.toArticleDomain() }
 
             val nextKey =
@@ -38,12 +40,18 @@ class ArticlePagingSource(private val api: NewsApi) : PagingSource<Int, ArticleD
                 } else {
                     // By default, initial load size = 3 * NETWORK PAGE SIZE
                     // ensure we're not requesting duplicating items at the 2nd request
-                    start + (params.loadSize / NETWORK_PAGE_SIZE)
+                    page + 1
                 }
 
+            val prevKey = if (
+                page == STARTING_KEY) {
+                null
+            } else {
+                page - 1
+            }
             LoadResult.Page(
                 data = articles,
-                prevKey = if (start == STARTING_KEY) null else start,
+                prevKey = prevKey,
                 nextKey = nextKey
             )
 
