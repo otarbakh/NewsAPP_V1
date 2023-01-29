@@ -1,4 +1,4 @@
-package com.example.newsapp_v1.data.paging
+package com.example.newsapp_v1.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -16,9 +16,8 @@ import javax.inject.Singleton
 
 class ArticlesDataSourceImpl @Inject constructor(
     private val newsApi: NewsApi,
-    private val articleDao:ArticleDao
 ):NewsPagingRepository {
-    override suspend fun getBreakingNews(q:String): Flow<PagingData<ArticleDomain>> {
+    override  fun getBreakingNews(q:String): Flow<PagingData<ArticleDomain>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
@@ -29,15 +28,5 @@ class ArticlesDataSourceImpl @Inject constructor(
             }
         ).flow
     }
-    override suspend fun getArticle(): Flow<PagingData<ArticleDomain>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = true
-            ),
-            pagingSourceFactory = {
-                SavedArticlePagingSource(articleDao)
-            }
-        ).flow
-    }
+
 }

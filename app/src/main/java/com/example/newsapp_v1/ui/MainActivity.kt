@@ -36,11 +36,6 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.searchNewsFragment -> {
-//                    loadFragment(SearchFragment())
-                    true
-                }
-
                 else -> {false}
             }
 

@@ -26,25 +26,17 @@ class NewsViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    private var currentSavedResult:Flow<PagingData<ArticleDomain>>? = null
-    private var currentBreakingResult:Flow<PagingData<ArticleDomain>>? = null
+    private val _searchedQuerry = MutableStateFlow<String>("chatgtp")
+    val searchedQuerry = _searchedQuerry.asStateFlow()
 
-
-    private val _newsState = MutableStateFlow<PagingData<ArticleDomain>>(PagingData.empty())
-    val newsState = _newsState.asStateFlow()
-
-     suspend fun getBreakingNewsFromViewModel(q:String): Flow<PagingData<ArticleDomain>> {
-        val result:Flow<PagingData<ArticleDomain>> =
-            newsPagingRepository.getBreakingNews().cachedIn(viewModelScope)
-         currentBreakingResult = result
-         return result
+    val collectedSearchQuerry = searchedQuerry.flatMapLatest { querry ->
+        newsPagingRepository.getBreakingNews(querry).cachedIn(viewModelScope)
     }
 
-    suspend fun getSavedArticle():Flow<PagingData<ArticleDomain>>{
-        val result:Flow<PagingData<ArticleDomain>> =
-            newsPagingRepository.getArticle().cachedIn(viewModelScope)
-        currentSavedResult = result
-        return result
+
+
+    fun search(q:String){
+        _searchedQuerry.value = q
     }
 
     fun upsertArticle(article: ArticleDomain) {
@@ -59,6 +51,7 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-
-
+    suspend fun getSavedArticle():Flow<List<ArticleDomain>>{
+        return newsRepositoryImpl.getArticle()
+    }
 }

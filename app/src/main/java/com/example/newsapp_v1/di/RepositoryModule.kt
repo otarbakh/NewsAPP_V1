@@ -1,7 +1,7 @@
 package com.example.newsapp_v1.di
 
-import com.example.newsapp_v1.data.paging.ArticlesDataSourceImpl
-import com.example.newsapp_v1.data.remote.repository.NewsRepositoryImpl
+import com.example.newsapp_v1.data.repository.ArticlesDataSourceImpl
+import com.example.newsapp_v1.data.repository.NewsRepositoryImpl
 import com.example.newsapp_v1.domain.repository.NewsPagingRepository
 import com.example.newsapp_v1.domain.repository.NewsRepository
 import dagger.Binds

@@ -11,8 +11,8 @@ interface NewsApi {
     suspend fun getBreakingNews(
         @Query("q")
         query:String ,
-//        @Query("page")
-//        pageNumber : Int,
+        @Query("page")
+        pageNumber : Int,
         @Query("pageSize")
         pageSize:Int,
         @Query("apiKey")

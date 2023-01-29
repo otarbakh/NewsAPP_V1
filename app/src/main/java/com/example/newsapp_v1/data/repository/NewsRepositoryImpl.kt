@@ -1,4 +1,4 @@
-package com.example.newsapp_v1.data.remote.repository
+package com.example.newsapp_v1.data.repository
 
 
 import com.example.newsapp_v1.common.util.Constants
@@ -19,6 +19,11 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao
 ) : NewsRepository {
+
+    override suspend fun getArticle(): Flow<List<ArticleDomain>> {
+        return articleDao.getAllArticles().map { it.map { it.toArticleDomain() } }
+
+    }
 
     override suspend fun upsertArticle(article: ArticleDomain) {
         return articleDao.upsert(article.toArticleEntity())

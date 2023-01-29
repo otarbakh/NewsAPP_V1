@@ -16,6 +16,7 @@ import com.example.newsapp_v1.ui.adapters.BreakingNewsAdapter
 import com.example.newsapp_v1.ui.viewmodels.NewsViewModel
 
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -30,7 +31,12 @@ class BreakingNewsFragment :
     override fun viewCreated() {
         setupRecycler()
         observe()
-        Log.d("Otar", "Viewcreadted 32 breaking")
+    }
+
+    override fun listeners() {
+        gotoLink()
+        addToFavorite()
+        search()
     }
 
     private fun setupRecycler() {
@@ -50,19 +56,16 @@ class BreakingNewsFragment :
     private fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.getBreakingNewsFromViewModel("america").collect() {
+                vm.collectedSearchQuerry.collectLatest {
                     breakingNewsAdapter.submitData(it)
+
                 }
 
             }
         }
     }
 
-    override fun listeners() {
-        gotoLink()
-        addToFavorite()
-        search()
-    }
+
 
     private fun gotoLink() {
         breakingNewsAdapter.apply {
@@ -75,13 +78,9 @@ class BreakingNewsFragment :
     }
 
     private fun search() {
-        binding.etSearch.addTextChangedListener { editable ->
+        binding.etSearchImpl.addTextChangedListener { editable ->
             if (editable!!.toString().isNotEmpty()) {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                        vm.getBreakingNewsFromViewModel(editable.toString())
-                    }
-                }
+                vm.search(editable.toString())
             }
         }
     }

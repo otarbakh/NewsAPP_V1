@@ -7,8 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface NewsPagingRepository {
-    suspend fun getBreakingNews(q:String): Flow<PagingData<ArticleDomain>>
-
-    suspend fun getArticle(): Flow<PagingData<ArticleDomain>>
-
+     fun getBreakingNews(q:String): Flow<PagingData<ArticleDomain>>
 }
