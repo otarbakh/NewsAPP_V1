@@ -9,6 +9,19 @@
     android:padding="10dp"
     android:background="@drawable/quarter_rectangle_bottom_gray">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftguidline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.45"
+        android:orientation="vertical"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightguidline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.55"
+        android:orientation="vertical"/>
+
     <TextView
         android:id="@+id/tvNewsText"
         android:layout_width="0dp"
@@ -47,27 +60,30 @@
 
     <TextView
         android:id="@+id/tvauthor"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
         android:fontFamily="@font/reco"
         android:text="Author"
+        android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/leftguidline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDesription" />
 
     <TextView
         android:id="@+id/tvpublishDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:fontFamily="@font/reco"
+        android:textAlignment="textEnd"
         android:text="14:00"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rightguidline"
         app:layout_constraintTop_toBottomOf="@id/tvDesription" />
 
 
