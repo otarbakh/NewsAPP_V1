@@ -13,12 +13,14 @@ data class ArticlesEntity(
     val urlToImage: String?,
     val title: String?,
     val description: String?,
+    val publishedAt:String?,
+    val author:String?
 
 
     )
 
 fun ArticlesEntity.toArticleDomain(): ArticleDomain {
     return ArticleDomain(
-        url, description, title, urlToImage,
+        url, description, title, urlToImage,publishedAt,author
     )
 }

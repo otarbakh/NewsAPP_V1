@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.newsapp_v1.data.remote.models.Article
 import com.example.newsapp_v1.databinding.SinglenewsitemBinding
 import com.example.newsapp_v1.domain.models.ArticleDomain
@@ -41,9 +43,12 @@ class BreakingNewsAdapter :
             binding.apply {
                 tvNewsText.text = model?.title
                 tvDesription.text = model?.description
+                tvauthor.text = model?.author
+                tvpublishDate.text = model?.publishedAt?.dropLast(10)
 
                 Glide.with(this.ivNewsImage)
                     .load(model?.urlToImage)
+                    .transform(CenterInside(), RoundedCorners(24))
                     .into(ivNewsImage)
             }
 

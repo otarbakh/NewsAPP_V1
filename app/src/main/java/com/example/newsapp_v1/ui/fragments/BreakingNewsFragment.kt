@@ -28,6 +28,7 @@ class BreakingNewsFragment :
 
     private val vm: NewsViewModel by viewModels()
 
+
     override fun viewCreated() {
         setupRecycler()
         observe()

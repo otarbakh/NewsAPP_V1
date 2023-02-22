@@ -6,14 +6,16 @@ data class ArticleDomain(
     val url:String,
     val description:String?,
     val title:String?,
-    val urlToImage:String?
+    val urlToImage:String?,
+    val publishedAt:String?,
+    val author:String?
 
 )
 
 
 fun ArticleDomain.toArticleEntity():ArticlesEntity{
     return ArticlesEntity(
-        url,urlToImage, title, description,
+        url,urlToImage, title, description,publishedAt,author
 
     )
 }

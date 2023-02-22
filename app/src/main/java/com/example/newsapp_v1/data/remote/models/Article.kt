@@ -1,7 +1,10 @@
 package com.example.newsapp_v1.data.remote.models
 
+import androidx.paging.PagingData
 import com.example.newsapp_v1.domain.models.ArticleDomain
+import com.example.newsapp_v1.domain.repository.NewsPagingRepository
 import com.google.gson.annotations.SerializedName
+import kotlinx.coroutines.flow.Flow
 
 data class Article(
     @SerializedName("author")
@@ -22,13 +25,17 @@ data class Article(
     val urlToImage: String?
 )
 
+
+
 fun Article.toArticleDomain(): ArticleDomain {
 
     return ArticleDomain(
         url,
         description,
         title,
-        urlToImage
+        urlToImage,
+        publishedAt,
+        author
     )
 }
 
